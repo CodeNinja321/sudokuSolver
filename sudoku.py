@@ -1,15 +1,15 @@
 
 
 puzzle = [
-        [3,0,0,5,0,0,0,0,0],
-        [0,5,0,0,3,0,8,0,4],
-        [0,0,0,7,0,0,0,6,5],
-        [8,4,0,0,1,0,0,5,0],
-        [0,0,0,0,0,0,6,1,0],
-        [9,3,0,0,8,0,0,2,0],
-        [0,0,0,4,0,0,0,3,6],
-        [0,2,0,0,6,0,7,0,1],
-        [7,0,0,8,0,0,0,0,0]
+        [0,0,0,0,3,0,0,6,0],
+        [0,0,3,0,0,0,0,9,0],
+        [0,9,0,5,0,0,0,1,4],
+        [0,0,8,0,7,2,0,0,0],
+        [1,0,0,4,0,3,2,0,0],
+        [0,0,0,6,8,0,0,0,1],
+        [0,0,0,0,1,0,0,0,0],
+        [6,3,4,0,0,0,0,0,7],
+        [0,0,1,0,0,6,0,4,5]
         ]
 
 candidates =[
@@ -211,165 +211,217 @@ def candidateTrimmingRow(boxes):
 
     for i in boxes:
         for j in range(1,10):
-            if j in i[0] and j not in i[1] and j not in i[2]:
+            #print('Checking for',j,'in',i[0],'\n',i[1],'\n',i[2],'in box',boxNumber)
+            r1 = [item for sublist in i[0] for item in sublist]
+            r2 = [item for sublist in i[1] for item in sublist]
+            r3 = [item for sublist in i[2] for item in sublist]
+            
+            
+            if j in r1 and j not in r2 and j not in r3:
+                #print(j,'is in',i[0])
                 #remove from candidates and insert into not candidates
                 if boxNumber == 1:
                     #remove j from candidates[0][3:]
-                    candidates[0][3:].remove(j)
-                    notCandidates[0][3:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3,9):
+                        if j in candidates[0][counter]:
+                            candidates[0][counter].remove(j)
+                        notCandidates[0][counter].append(j)
                 elif boxNumber == 2:
                     #remove j from candidates[0][:3] and candidates[0][6:]
-                    candidates[0][:3].remove(j)
-                    candidates[0][6:].remove(j)
-                    notCandidates[0][:3].append(j)
-                    notCandidates[0][6:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3):
+                        if j in candidates[0][counter]:
+                            candidates[0][counter].remove(j)
+                        notCandidates[0][counter].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[0][counter]:
+                            candidates[0][counter].remove(j)
+                        notCandidates[0][counter].append(j)
                 elif boxNumber == 3:
                     #remove j from candidates[0][:6]
-                    candidates[0][:6].remove(j)
-                    notCandidates[0][:6].append(j)
-                    printIt(notCandidates)
+                    for counter in range(6):
+                        if j in candidates[0][counter]:
+                            candidates[0][counter].remove(j)
+                        notCandidates[0][counter].append(j)
                 elif boxNumber == 4:
                     #remove j from candidates[3][3:]
-                    candidates[3][3:].remove(j)
-                    notCandidates[3][3:].append(j)
-                    printIt(notCandidates)
+                    for counter in range (3,9):
+                        if j in candidates[3][counter]:
+                            candidates[3][counter].remove(j)
+                        notCandidates[3][counter].append(j)
                 elif boxNumber == 5:
                     #remove j from candidates[3][:3] and candidates[3][6:]
-                    candidates[3][:3].remove(j)
-                    candidates[3][6:].remove(j)
-                    notCandidates[3][:3].append(j)
-                    notCandidates[3][6:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3):
+                        if j in candidates[3][counter]:
+                            candidates[3][counter].remove(j)
+                        notCandidates[3][counter].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[3][counter]:
+                            candidates[3][counter].remove(j)
+                        notCandidates[3][counter].append(j)
                 elif boxNumber == 6:
                     #remove j from candidates[3][:6]
-                    candidates[3][:6].remove(j)
-                    notCandidates[3][:6].append(j)
-                    printIt(notCandidates)
+                    for counter in range(6):
+                        if j in candidates[3][counter]:
+                            candidates[3][counter].remove(j)
+                        notCandidates[3][counter].append(j)
                 elif boxNumber == 7:
                     #remove j from candidates[6][3:]
-                    candidates[6][3:].remove(j)
-                    notCandidates[6][3:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3,9):
+                        if j in candidates[6][counter]:
+                            candidates[6][counter].remove(j)
+                        notCandidates[6][counter].append(j)
                 elif boxNumber == 8:
                     #remove j from candidates[6][:3] and candidates[6][6:]
-                    candidates[6][:3].remove(j)
-                    candidates[6][6:].remove(j)
-                    notCandidates[6][:3].append(j)
-                    notCandidates[6][6:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3):
+                        if j in candidates[6][counter]:
+                            candidates[6][counter].remove(j)
+                        notCandidates[6][counter].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[6][counter]:
+                            candidates[6][counter].remove(j)
+                        notCandidates[6][counter].append(j)
                 elif boxNumber == 9:
                     #remove j from candidates[6][:6]
-                    candidates[6][:6].remove(j)
-                    notCandidates[6][:6].append(j)
-                    printIt(notCandidates)
-            elif j in i[1] and j not in i[0] and j not in i[2]:
+                    for counter in range(6):
+                        if j in candidates[6][counter]:
+                            candidates[6][counter].remove(j)
+                        notCandidates[6][counter].append(j)
+            elif j in r2 and j not in r1 and j not in r3:
                 #remove from candidates and insert into not candidates
                 if boxNumber == 1:
                     #remove j from candidates[1][3:]
-                    candidates[1][3:].remove(j)
-                    notCandidates[1][3:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3,9):
+                        if j in candidates[1][counter]:
+                            candidates[1][counter].remove(j)
+                        notCandidates[1][counter].append(j)
                 elif boxNumber == 2:
                     #remove j from candidates[1][0:3] and candidates[1][6:]
-                    candidates[1][:3].remove(j)
-                    candidates[1][6:].remove(j)
-                    notCandidates[1][:3].append(j)
-                    notCandidates[1][6:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3):
+                        if j in candidates[1][counter]:
+                            candidates[1][counter].remove(j)
+                        notCandidates[1][counter].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[1][counter]:
+                            candidates[1][6:].remove(j)
+                        notCandidates[1][6:].append(j)
                 elif boxNumber == 3:
                     #remove j from candidates[1][:6]
-                    candidates[1][:6].remove(j)
-                    notCandidates[1][:6].append(j)
-                    printIt(notCandidates)
+                    for counter in range(6):
+                        if j in candidates[1][counter]:
+                            candidates[1][counter].remove(j)
+                        notCandidates[1][counter].append(j)
                 elif boxNumber == 4:
                     #remove j from candidates[4][3:]
-                    candidates[4][3:].remove(j)
-                    notCandidates[4][3:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3,9):
+                        if j in candidates[4][counter]:
+                            candidates[4][counter].remove(j)
+                        notCandidates[4][counter].append(j)
                 elif boxNumber == 5:
                     #remove j from candidates[4][:3] and candidates[4][6:]
-                    candidates[4][:3].remove(j)
-                    candidates[4][6:].remove(j)
-                    notCandidates[4][:3].append(j)
-                    notCandidates[4][6:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3):
+                        if j in candidates[4][counter]:
+                            candidates[4][counter].remove(j)
+                        notCandidates[4][counter].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[4][counter]:
+                            candidates[4][counter].remove(j)
+                        notCandidates[4][counter].append(j)
                 elif boxNumber == 6:
                     #remove j from candidates[4][:6]
-                    candidates[4][:6].remove(j)
-                    notCandidates[4][:6].append(j)
-                    printIt(notCandidates)
+                    for counter in range(6):
+                        if j in candidates[4][counter]:
+                            candidates[4][counter].remove(j)
+                        notCandidates[4][counter].append(j)
                 elif boxNumber == 7:
                     #remove j from candidates[7][3:]
-                    candidates[7][3:].remove(j)
-                    notCandidates[7][3:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3,9):
+                        if j in candidates[7][counter]:
+                            candidates[7][counter].remove(j)
+                        notCandidates[7][counter].append(j)
                 elif boxNumber == 8:
                     #remove j from candidates[7][:3] and candidates[7][6:]
-                    candidates[7][:3].remove(j)
-                    candidates[7][6:].remove(j)
-                    notCandidates[7][:3].append(j)
-                    notCandidates[7][6:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3):
+                        if j in candidates[7][counter]:
+                            candidates[7][counter].remove(j)
+                        notCandidates[7][counter].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[7][counter]:
+                            candidates[7][counter].remove(j)
+                        notCandidates[7][counter].append(j)
                 elif boxNumber == 9:
                     #remove j from candidates[7][:6]
-                    candidates[7][:6].remove(j)
-                    notCandidates[7][:6].append(j)
-                    printIt(notCandidates)
-            elif j in i[2] and j not in i[0] and j not in i[1]:
+                    for counter in range(6):
+                        if j in candidates[7][counter]:
+                            candidates[7][counter].remove(j)
+                        notCandidates[7][counter].append(j)
+            elif j in r3 and j not in r1 and j not in r2:
                 #remove from candidates and insert into not candidates
                 if boxNumber == 1:
                     #remove j from candidates[2][3:]
-                    candidates[2][3:].remove(j)
-                    notCandidates[2][3:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3,9):
+                        if j in candidates[2][counter]:
+                            candidates[2][counter].remove(j)
+                        notCandidates[2][counter].append(j)
                 elif boxNumber == 2:
                     #remove j from candidates[2][0:3] and candidates[2][6:]
-                    candidates[2][:3].remove(j)
-                    candidates[2][6:].remove(j)
-                    notCandidates[2][:3].append(j)
-                    notCandidates[2][6:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3):
+                        if j in candidates[2][counter]:
+                            candidates[2][counter].remove(j)
+                        notCandidates[2][counter].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[2][counter]:
+                            candidates[2][counter].remove(j)
+                        notCandidates[2][counter].append(j)
                 elif boxNumber == 3:
                     #remove j from candidates[2][:6]
-                    candidates[2][:6].remove(j)
-                    notCandidates[2][:6].append(j)
-                    printIt(notCandidates)
+                    for counter in range(6):
+                        if j in candidates[2][counter]:
+                            candidates[2][counter].remove(j)
+                        notCandidates[2][counter].append(j)
                 elif boxNumber == 4:
                     #remove j from candidates[5][3:]
-                    candidates[5][3:].remove(j)
-                    notCandidates[5][3:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3,9):
+                        if j in candidates[5][counter]:
+                            candidates[5][counter].remove(j)
+                        notCandidates[5][counter].append(j)
                 elif boxNumber == 5:
                     #remove j from candidates[5][:3] and candidates[5][6:]
-                    candidates[5][:3].remove(j)
-                    candidates[5][6:].remove(j)
-                    notCandidates[5][:3].append(j)
-                    notCandidates[5][6:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3):
+                        if j in candidates[5][counter]:
+                            candidates[5][counter].remove(j)
+                        notCandidates[5][counter].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[5][counter]:
+                            candidates[5][counter].remove(j)
+                        notCandidates[5][counter].append(j)
                 elif boxNumber == 6:
                     #remove j from candidates[5][:6]
-                    candidates[5][:6].remove(j)
-                    notCandidates[5][:6].append(j)
-                    printIt(notCandidates)
+                    for counter in range(6):
+                        if j in candidates[5][counter]:
+                            candidates[5][counter].remove(j)
+                        notCandidates[5][counter].append(j)
                 elif boxNumber == 7:
                     #remove j from candidates[8][3:]
-                    candidates[8][3:].remove(j)
-                    notCandidates[8][3:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3,9):
+                        if j in candidates[8][counter]:
+                            candidates[8][counter].remove(j)
+                        notCandidates[8][counter].append(j)
                 elif boxNumber == 8:
                     #remove j from candidates[8][:3] and candidates[8][6:]
-                    candidates[8][:3].remove(j)
-                    candidates[8][6:].remove(j)
-                    notCandidates[8][:3].append(j)
-                    notCandidates[8][6:].append(j)
-                    printIt(notCandidates)
+                    for counter in range(3):
+                        if j in candidates[8][counter]:
+                            candidates[8][counter].remove(j)
+                        notCandidates[8][counter].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[8][counter]:
+                            candidates[8][counter].remove(j)
+                        notCandidates[8][counter].append(j)
                 elif boxNumber == 9:
                     #remove j from candidates[8][:6]
-                    candidates[8][:6].remove(j)
-                    notCandidates[8][:6].append(j)
-                    printIt(notCandidates)
+                    for counter in range(6):
+                        if j in candidates[8][counter]:
+                            candidates[8][counter].remove(j)
+                        notCandidates[8][counter].append(j)
 
         boxNumber += 1
     zeroCounter = findCandidates()

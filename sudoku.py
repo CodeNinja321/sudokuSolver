@@ -1,15 +1,15 @@
 
 
 puzzle = [
-        [0,0,0,0,3,0,0,6,0],
-        [0,0,3,0,0,0,0,9,0],
-        [0,9,0,5,0,0,0,1,4],
-        [0,0,8,0,7,2,0,0,0],
-        [1,0,0,4,0,3,2,0,0],
-        [0,0,0,6,8,0,0,0,1],
-        [0,0,0,0,1,0,0,0,0],
-        [6,3,4,0,0,0,0,0,7],
-        [0,0,1,0,0,6,0,4,5]
+        [0,0,0,0,4,0,0,0,0],
+        [0,0,0,0,0,0,5,0,9],
+        [0,7,2,0,0,5,0,8,1],
+        [7,0,0,5,0,4,9,0,0],
+        [3,0,5,2,1,0,0,0,0],
+        [6,0,0,3,0,9,2,0,0],
+        [0,1,9,0,0,3,0,6,4],
+        [0,0,0,0,0,0,7,0,5],
+        [0,0,0,0,8,0,0,0,0]
         ]
 
 candidates =[
@@ -698,6 +698,181 @@ def pairsInRow(pair_rows):
         rowNumber += 1
     zeroCounter = findCandidates()
 #############################################################################
+#pairsInColumn
+def pairsInColumn(pair_columns):
+    colNumber = 1
+    for i in pair_columns:
+        #print(i,'\n')
+        for j in range(8):
+            for k in range(j+1,9):
+                if len(i[j]) == 2 and i[j] == i[k]:
+                    #Remove
+                    for counter in range(9):
+                        if counter != j and counter != k:
+                            if i[j][0] in candidates[counter][colNumber - 1]:
+                                candidates[counter][colNumber - 1].remove(i[j][0])
+                                notCandidates[counter][colNumber - 1].append(i[j][0])
+                            if i[j][1] in candidates[counter][colNumber - 1]:
+                                candidates[counter][colNumber - 1].remove(i[j][1])
+                                notCandidates[counter][colNumber - 1].append(i[j][1])
+
+        colNumber += 1
+    zeroCounter = findCandidates()
+#############################################################################
+#pairsInBox
+def pairsInBox(pair_boxes):
+    boxNumber = 1
+    for box in pair_boxes:
+        #print(i,'\n')
+        for rowA in range(3):
+            for colA in range(3):
+                if rowA == 2 and colA == 2:
+                    break
+                for rowB in range(rowA,3):
+                    for colB in range(3):
+                        if rowA == rowB and colA >= colB:
+                            continue
+                        if len(box[rowA][colA]) == 2 and box[rowA][colA] == box[rowB][colB]:
+                            #Remove
+                            if boxNumber == 1:
+                                for row in range(3):
+                                    for col in range(3):
+                                        if row == rowA and col == colA:
+                                            continue
+                                        elif row == rowB and col == colB:
+                                            continue
+                                        else:
+                                            if box[rowA][colA][0] in candidates[row][col]:
+                                                candidates[row][col].remove(box[rowA][colA][0])
+                                                notCandidates[row][col].append(box[rowA][colA][0])
+                                            if box[rowA][colA][1] in candidates[row][col]:
+                                                candidates[row][col].remove(box[rowA][colA][1])
+                                                notCandidates[row][col].append(box[rowA][colA][1])
+
+                            elif boxNumber == 2:
+                                for row in range(3):
+                                    for col in range(3):
+                                        if row == rowA and col == colA:
+                                            continue
+                                        elif row == rowB and col == colB:
+                                            continue
+                                        else:
+                                            if box[rowA][colA][0] in candidates[row][col+3]:
+                                                candidates[row][col+3].remove(box[rowA][colA][0])
+                                                notCandidates[row][col+3].append(box[rowA][colA][0])
+                                            if box[rowA][colA][1] in candidates[row][col+3]:
+                                                candidates[row][col+3].remove(box[rowA][colA][1])
+                                                notCandidates[row][col+3].append(box[rowA][colA][1])
+
+                            elif boxNumber == 3:
+                                for row in range(3):
+                                    for col in range(3):
+                                        if row == rowA and col == colA:
+                                            continue
+                                        elif row == rowB and col == colB:
+                                            continue
+                                        else:
+                                            if box[rowA][colA][0] in candidates[row][col+6]:
+                                                candidates[row][col+6].remove(box[rowA][colA][0])
+                                                notCandidates[row][col+6].append(box[rowA][colA][0])
+                                            if box[rowA][colA][1] in candidates[row][col+6]:
+                                                candidates[row][col+6].remove(box[rowA][colA][1])
+                                                notCandidates[row][col+6].append(box[rowA][colA][1])
+                            elif boxNumber == 4:
+                                for row in range(3):
+                                    for col in range(3):
+                                        if row == rowA and col == colA:
+                                            continue
+                                        elif row == rowB and col == colB:
+                                            continue
+                                        else:
+                                            if box[rowA][colA][0] in candidates[row+3][col]:
+                                                candidates[row+3][col].remove(box[rowA][colA][0])
+                                                notCandidates[row+3][col].append(box[rowA][colA][0])
+                                            if box[rowA][colA][1] in candidates[row+3][col]:
+                                                candidates[row+3][col].remove(box[rowA][colA][1])
+                                                notCandidates[row+3][col].append(box[rowA][colA][1])
+
+                            elif boxNumber == 5:
+                                for row in range(3):
+                                    for col in range(3):
+                                        if row == rowA and col == colA:
+                                            continue
+                                        elif row == rowB and col == colB:
+                                            continue
+                                        else:
+                                            if box[rowA][colA][0] in candidates[row+3][col+3]:
+                                                candidates[row+3][col+3].remove(box[rowA][colA][0])
+                                                notCandidates[row+3][col+3].append(box[rowA][colA][0])
+                                            if box[rowA][colA][1] in candidates[row+3][col+3]:
+                                                candidates[row+3][col+3].remove(box[rowA][colA][1])
+                                                notCandidates[row+3][col+3].append(box[rowA][colA][1])
+
+                            elif boxNumber == 6:
+                                for row in range(3):
+                                    for col in range(3):
+                                        if row == rowA and col == colA:
+                                            continue
+                                        elif row == rowB and col == colB:
+                                            continue
+                                        else:
+                                            if box[rowA][colA][0] in candidates[row+3][col+6]:
+                                                candidates[row+3][col+6].remove(box[rowA][colA][0])
+                                                notCandidates[row+3][col+6].append(box[rowA][colA][0])
+                                            if box[rowA][colA][1] in candidates[row+1][col+6]:
+                                                candidates[row+3][col+6].remove(box[rowA][colA][1])
+                                                notCandidates[row+3][col+6].append(box[rowA][colA][1])
+
+                            elif boxNumber == 7:
+                                for row in range(3):
+                                    for col in range(3):
+                                        if row == rowA and col == colA:
+                                            continue
+                                        elif row == rowB and col == colB:
+                                            continue
+                                        else:
+                                            if box[rowA][colA][0] in candidates[row+6][col]:
+                                                candidates[row+6][col].remove(box[rowA][colA][0])
+                                                notCandidates[row+6][col].append(box[rowA][colA][0])
+                                            if box[rowA][colA][1] in candidates[row+6][col]:
+                                                candidates[row+6][col].remove(box[rowA][colA][1])
+                                                notCandidates[row+6][col].append(box[rowA][colA][1])
+
+                            elif boxNumber == 8:
+                                for row in range(3):
+                                    for col in range(3):
+                                        if row == rowA and col == colA:
+                                            continue
+                                        elif row == rowB and col == colB:
+                                            continue
+                                        else:
+                                            if box[rowA][colA][0] in candidates[row+6][col+3]:
+                                                candidates[row+6][col+3].remove(box[rowA][colA][0])
+                                                notCandidates[row+6][col+3].append(box[rowA][colA][0])
+                                            if box[rowA][colA][1] in candidates[row+6][col+3]:
+                                                candidates[row+6][col+3].remove(box[rowA][colA][1])
+                                                notCandidates[row+6][col+3].append(box[rowA][colA][1])
+
+                            elif boxNumber == 9:
+                                for row in range(3):
+                                    for col in range(3):
+                                        if row == rowA and col == colA:
+                                            continue
+                                        elif row == rowB and col == colB:
+                                            continue
+                                        else:
+                                            if box[rowA][colA][0] in candidates[row+6][col+6]:
+                                                candidates[row+6][col+6].remove(box[rowA][colA][0])
+                                                notCandidates[row+6][col+6].append(box[rowA][colA][0])
+                                            if box[rowA][colA][1] in candidates[row+6][col+6]:
+                                                candidates[row+6][col+6].remove(box[rowA][colA][1])
+                                                notCandidates[row+6][col+6].append(box[rowA][colA][1])
+
+        boxNumber += 1
+    zeroCounter = findCandidates()
+
+
+#############################################################################
 #processOfElimination
 def processOfElimination():
     
@@ -786,7 +961,7 @@ def processOfElimination():
 
     pair_boxes = [pb1,pb2,pb3,pb4,pb5,pb6,pb7,pb8,pb9]
 
-    #pairsInBox(pair_boxes)
+    pairsInBox(pair_boxes)
 
     #################
     # Pairs in rows #
@@ -822,7 +997,7 @@ def processOfElimination():
 
     pair_columns = [pc1,pc2,pc3,pc4,pc5,pc6,pc7,pc8,pc9]
 
-    #pairsInColumn(pair_columns)
+    pairsInColumn(pair_columns)
 
 #############################################
 #testing
@@ -842,7 +1017,6 @@ def main():
             break
 
         if lastZeroCounter == zeroCounter:
-            print('calling POE!!!')
             processOfElimination()
             zeroCounter = findCandidates()
             solve()
@@ -850,7 +1024,6 @@ def main():
                 print('I give up!!!')
                 findCandidates()
                 printIt(candidates)
-                #printIt(notCandidates)
                 break
 
         lastZeroCounter = zeroCounter

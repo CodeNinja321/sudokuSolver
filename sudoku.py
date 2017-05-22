@@ -36,6 +36,17 @@ notCandidates =[
         [[],[],[],[],[],[],[],[],[]]
         ]
 
+pairs =[
+        [[],[],[],[],[],[],[],[],[]],
+        [[],[],[],[],[],[],[],[],[]],
+        [[],[],[],[],[],[],[],[],[]],
+        [[],[],[],[],[],[],[],[],[]],
+        [[],[],[],[],[],[],[],[],[]],
+        [[],[],[],[],[],[],[],[],[]],
+        [[],[],[],[],[],[],[],[],[]],
+        [[],[],[],[],[],[],[],[],[]],
+        [[],[],[],[],[],[],[],[],[]]
+        ]
 
 zeroCounter = 0
 
@@ -66,6 +77,13 @@ def solve():
                 puzzle[i][j] = candidates[i][j][0]
                 del candidates[i][j][0]
     clearCandidates()
+
+def findPairs():
+    for i in range(9):
+        for j in range(9):
+            if len(candidates[i][j]) == 2:
+                pairs[i][j] = candidates[i][j]
+
 
 #findMySquare
 def findMySquare(a, b):
@@ -659,6 +677,27 @@ def candidateTrimmingRow(boxes):
         boxNumber += 1
     zeroCounter = findCandidates()
 #############################################################################
+#pairsInRow
+def pairsInRow(pair_rows):
+    rowNumber = 1
+    for i in pair_rows:
+        #print(i,'\n')
+        for j in range(8):
+            for k in range(j+1,9):
+                if len(i[0][j]) == 2 and i[0][j] == i[0][k]:
+                    #Remove
+                    for counter in range(9):
+                        if counter != j and counter != k:
+                            if i[0][j][0] in candidates[rowNumber - 1][counter]:
+                                candidates[rowNumber - 1][counter].remove(i[0][j][0])
+                                notCandidates[rowNumber - 1][counter].append(i[0][j][0])
+                            if i[0][j][1] in candidates[rowNumber - 1][counter]:
+                                candidates[rowNumber - 1][counter].remove(i[0][j][1])
+                                notCandidates[rowNumber - 1][counter].append(i[0][j][1])
+
+        rowNumber += 1
+    zeroCounter = findCandidates()
+#############################################################################
 #processOfElimination
 def processOfElimination():
     
@@ -689,7 +728,7 @@ def processOfElimination():
     ##################################
     # Boxes 3 # candidateTrimmingCol #
     ##################################
-    #TODO
+    
     candidateTrimmingCol(boxes)
     
     #############################
@@ -726,6 +765,64 @@ def processOfElimination():
     columns = [c1,c2,c3,c4,c5,c6,c7,c8,c9]
 
     ifOnlyOneInColumn(columns)
+
+    #Pairs
+
+    findPairs()
+    
+    ##################
+    # Pairs in boxes #
+    ##################
+
+    pb1 = [x[:3] for x in pairs[:3]]
+    pb2 = [x[3:6] for x in pairs[:3]]
+    pb3 = [x[6:] for x in pairs[:3]]
+    pb4 = [x[:3] for x in pairs[3:6]]
+    pb5 = [x[3:6] for x in pairs[3:6]]
+    pb6 = [x[6:] for x in pairs[3:6]]
+    pb7 = [x[:3] for x in pairs[6:]]
+    pb8 = [x[3:6] for x in pairs[6:]]
+    pb9 = [x[6:] for x in pairs[6:]]
+
+    pair_boxes = [pb1,pb2,pb3,pb4,pb5,pb6,pb7,pb8,pb9]
+
+    #pairsInBox(pair_boxes)
+
+    #################
+    # Pairs in rows #
+    #################
+
+    pr1 = [pairs[0]]
+    pr2 = [pairs[1]]
+    pr3 = [pairs[2]]
+    pr4 = [pairs[3]]
+    pr5 = [pairs[4]]
+    pr6 = [pairs[5]]
+    pr7 = [pairs[6]]
+    pr8 = [pairs[7]]
+    pr9 = [pairs[8]]
+    
+    pair_rows = [pr1,pr2,pr3,pr4,pr5,pr6,pr7,pr8,pr9]
+
+    pairsInRow(pair_rows)
+
+    ####################
+    # Pairs in columns #
+    ####################
+
+    pc1 = [x[0] for x in pairs[:]]
+    pc2 = [x[1] for x in pairs[:]]
+    pc3 = [x[2] for x in pairs[:]]
+    pc4 = [x[3] for x in pairs[:]]
+    pc5 = [x[4] for x in pairs[:]]
+    pc6 = [x[5] for x in pairs[:]]
+    pc7 = [x[6] for x in pairs[:]]
+    pc8 = [x[7] for x in pairs[:]]
+    pc9 = [x[8] for x in pairs[:]]
+
+    pair_columns = [pc1,pc2,pc3,pc4,pc5,pc6,pc7,pc8,pc9]
+
+    #pairsInColumn(pair_columns)
 
 #############################################
 #testing

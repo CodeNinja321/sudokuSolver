@@ -205,16 +205,249 @@ def ifOnlyOneInBox(boxes):
         k += 1
     zeroCounter = findCandidates()
 #################################################################################################
+#candidateTrimmingCol
+def candidateTrimmingCol(boxes):
+    boxNumber = 1
+
+    for i in boxes:
+        c1 = [x[0] for x in i[:]]
+        c2 = [x[1] for x in i[:]]
+        c3 = [x[2] for x in i[:]]
+        
+        col1 = [item for sublist in c1 for item in sublist]
+        col2 = [item for sublist in c2 for item in sublist]
+        col3 = [item for sublist in c3 for item in sublist]
+        #print('col1',col1,'\ncol2',col2,'\ncol2',col3)
+        for j in range(1,10):
+            if j in col1 and j not in col2 and j not in col3:
+                #print(j,'is in',i[0])
+                #remove from candidates and insert into not candidates
+                if boxNumber == 1:
+                    #remove j from candidates[3:][0]
+                    for counter in range(3,9):
+                        if j in candidates[counter][0]:
+                            candidates[counter][0].remove(j)
+                        notCandidates[counter][0].append(j)
+                elif boxNumber == 2:
+                    #remove j from candidates[3:][3]
+                    for counter in range(3,9):
+                        if j in candidates[counter][3]:
+                            candidates[counter][3].remove(j)
+                        notCandidates[counter][3].append(j)
+                elif boxNumber == 3:
+                    #remove j from candidates[3:][6]
+                    for counter in range(3,9):
+                        if j in candidates[counter][6]:
+                            candidates[counter][6].remove(j)
+                        notCandidates[counter][6].append(j)
+                elif boxNumber == 4:
+                    #remove j from candidates[:3][0] and form candidates[6:][0]
+                    for counter in range(3):
+                        if j in candidates[counter][0]:
+                            candidates[counter][0].remove(j)
+                        notCandidates[counter][0].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[counter][0]:
+                            candidates[counter][0].remove(j)
+                        notCandidates[counter][0].append(j)
+                elif boxNumber == 5:
+                    #remove j from candidates[:3][3] and candidates[6:][3]
+                    for counter in range(3):
+                        if j in candidates[counter][3]:
+                            candidates[counter][3].remove(j)
+                        notCandidates[counter][3].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[counter][3]:
+                            candidates[counter][3].remove(j)
+                        notCandidates[counter][3].append(j)
+                elif boxNumber == 6:
+                    #remove j from candidates[:3][6] and candidates[6:][6]
+                    for counter in range(3):
+                        if j in candidates[counter][6]:
+                            candidates[counter][6].remove(j)
+                        notCandidates[counter][6].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[counter][6]:
+                            candidates[counter][6].remove(j)
+                        notCandidates[counter][6].append(j)
+                elif boxNumber == 7:
+                    #remove j from candidates[:6][0]
+                    for counter in range(6):
+                        if j in candidates[counter][0]:
+                            candidates[counter][0].remove(j)
+                        notCandidates[counter][0].append(j)
+                elif boxNumber == 8:
+                    #remove j from candidates[:6][3]
+                    for counter in range(6):
+                        if j in candidates[counter][3]:
+                            candidates[counter][3].remove(j)
+                        notCandidates[counter][3].append(j)
+                elif boxNumber == 9:
+                    #remove j from candidates[:6][6]
+                    for counter in range(6):
+                        if j in candidates[counter][6]:
+                            candidates[counter][6].remove(j)
+                        notCandidates[counter][6].append(j)
+            elif j in col2 and j not in col1 and j not in col3:
+                #print(j,'is in',i[0])
+                #remove from candidates and insert into not candidates
+                if boxNumber == 1:
+                    #remove j from candidates[3:][0]
+                    for counter in range(3,9):
+                        if j in candidates[counter][1]:
+                            candidates[counter][1].remove(j)
+                        notCandidates[counter][1].append(j)
+                elif boxNumber == 2:
+                    #remove j from candidates[3:][3]
+                    for counter in range(3,9):
+                        if j in candidates[counter][4]:
+                            candidates[counter][4].remove(j)
+                        notCandidates[counter][4].append(j)
+                elif boxNumber == 3:
+                    #remove j from candidates[3:][6]
+                    for counter in range(3,9):
+                        if j in candidates[counter][7]:
+                            candidates[counter][7].remove(j)
+                        notCandidates[counter][7].append(j)
+                elif boxNumber == 4:
+                    #remove j from candidates[:3][0] and form candidates[6:][0]
+                    for counter in range(3):
+                        if j in candidates[counter][1]:
+                            candidates[counter][1].remove(j)
+                        notCandidates[counter][1].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[counter][1]:
+                            candidates[counter][1].remove(j)
+                        notCandidates[counter][1].append(j)
+                elif boxNumber == 5:
+                    #remove j from candidates[:3][3] and candidates[6:][3]
+                    for counter in range(3):
+                        if j in candidates[counter][4]:
+                            candidates[counter][4].remove(j)
+                        notCandidates[counter][4].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[counter][4]:
+                            candidates[counter][4].remove(j)
+                        notCandidates[counter][4].append(j)
+                elif boxNumber == 6:
+                    #remove j from candidates[:3][6] and candidates[6:][6]
+                    for counter in range(3):
+                        if j in candidates[counter][7]:
+                            candidates[counter][7].remove(j)
+                        notCandidates[counter][7].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[counter][7]:
+                            candidates[counter][7].remove(j)
+                        notCandidates[counter][7].append(j)
+                elif boxNumber == 7:
+                    #remove j from candidates[:6][0]
+                    for counter in range(6):
+                        if j in candidates[counter][1]:
+                            candidates[counter][1].remove(j)
+                        notCandidates[counter][1].append(j)
+                elif boxNumber == 8:
+                    #remove j from candidates[:6][3]
+                    for counter in range(6):
+                        if j in candidates[counter][4]:
+                            candidates[counter][4].remove(j)
+                        notCandidates[counter][4].append(j)
+                elif boxNumber == 9:
+                    #remove j from candidates[:6][6]
+                    for counter in range(6):
+                        if j in candidates[counter][7]:
+                            candidates[counter][7].remove(j)
+                        notCandidates[counter][7].append(j)
+            elif j in col3 and j not in col1 and j not in col2:
+               #print(j,'is in',i[0])
+               #remove from candidates and insert into not candidates
+                if boxNumber == 1:
+                   #remove j from candidates[3:][0]
+                    for counter in range(3,9):
+                        if j in candidates[counter][2]:
+                            candidates[counter][2].remove(j)
+                        notCandidates[counter][2].append(j)
+                elif boxNumber == 2:
+                    #remove j from candidates[3:][3]
+                    for counter in range(3,9):
+                        if j in candidates[counter][5]:
+                            candidates[counter][5].remove(j)
+                        notCandidates[counter][5].append(j)
+                elif boxNumber == 3:
+                    #remove j from candidates[3:][6]
+                    for counter in range(3,9):
+                        if j in candidates[counter][8]:
+                            candidates[counter][8].remove(j)
+                        notCandidates[counter][8].append(j)
+                elif boxNumber == 4:
+                    #remove j from candidates[:3][0] and form candidates[6:][0]
+                    for counter in range(3):
+                        if j in candidates[counter][2]:
+                            candidates[counter][2].remove(j)
+                        notCandidates[counter][2].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[counter][2]:
+                            candidates[counter][2].remove(j)
+                        notCandidates[counter][2].append(j)
+                elif boxNumber == 5:
+                    #remove j from candidates[:3][3] and candidates[6:][3]
+                    for counter in range(3):
+                        if j in candidates[counter][5]:
+                            candidates[counter][5].remove(j)
+                        notCandidates[counter][5].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[counter][5]:
+                            candidates[counter][5].remove(j)
+                        notCandidates[counter][5].append(j)
+                elif boxNumber == 6:
+                    #remove j from candidates[:3][6] and candidates[6:][6]
+                    for counter in range(3):
+                        if j in candidates[counter][8]:
+                            candidates[counter][8].remove(j)
+                        notCandidates[counter][8].append(j)
+                    for counter in range(6,9):
+                        if j in candidates[counter][8]:
+                            candidates[counter][8].remove(j)
+                        notCandidates[counter][8].append(j)
+                elif boxNumber == 7:
+                    #remove j from candidates[:6][0]
+                    for counter in range(6):
+                        if j in candidates[counter][2]:
+                            candidates[counter][2].remove(j)
+                        notCandidates[counter][2].append(j)
+                elif boxNumber == 8:
+                    #remove j from candidates[:6][3]
+                    for counter in range(6):
+                        if j in candidates[counter][5]:
+                            candidates[counter][5].remove(j)
+                        notCandidates[counter][5].append(j)
+                elif boxNumber == 9:
+                    #remove j from candidates[:6][6]
+                    for counter in range(6):
+                        if j in candidates[counter][8]:
+                            candidates[counter][8].remove(j)
+                        notCandidates[counter][8].append(j)
+
+        boxNumber += 1
+    zeroCounter = findCandidates()
+
+
+#################################################################################################
 #candidateTrimmingRow
 def candidateTrimmingRow(boxes):
     boxNumber = 1
 
     for i in boxes:
+        r1 = [item for sublist in i[0] for item in sublist]
+        r2 = [item for sublist in i[1] for item in sublist]
+        r3 = [item for sublist in i[2] for item in sublist]
+
+        #print('r1',r1,'\nr2',r2,'\nr3',r3)
+
         for j in range(1,10):
             #print('Checking for',j,'in',i[0],'\n',i[1],'\n',i[2],'in box',boxNumber)
-            r1 = [item for sublist in i[0] for item in sublist]
-            r2 = [item for sublist in i[1] for item in sublist]
-            r3 = [item for sublist in i[2] for item in sublist]
+            #r1 = [item for sublist in i[0] for item in sublist]
+            #r2 = [item for sublist in i[1] for item in sublist]
+            #r3 = [item for sublist in i[2] for item in sublist]
             
             
             if j in r1 and j not in r2 and j not in r3:
@@ -457,7 +690,7 @@ def processOfElimination():
     # Boxes 3 # candidateTrimmingCol #
     ##################################
     #TODO
-    #candidateTrimmingCol(boxes)
+    candidateTrimmingCol(boxes)
     
     #############################
     # Rows # if only one in row #
@@ -515,11 +748,12 @@ def main():
             print('calling POE!!!')
             processOfElimination()
             zeroCounter = findCandidates()
+            solve()
             if lastZeroCounter == zeroCounter:
                 print('I give up!!!')
-                
+                findCandidates()
                 printIt(candidates)
-
+                #printIt(notCandidates)
                 break
 
         lastZeroCounter = zeroCounter

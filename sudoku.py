@@ -6,6 +6,7 @@
 # Unique Rectangle
 # Hidden pair
 # Hidden trips
+####################
 
 
 puzzle = [

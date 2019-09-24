@@ -231,7 +231,7 @@ def ifOnlyOneInBox(boxes):
                             #k=box, z1=row, x1=column
         k += 1
     zeroCounter = findCandidates()
-#################################################################################################
+########################################
 #candidateTrimmingCol
 def candidateTrimmingCol(boxes):
     boxNumber = 1
